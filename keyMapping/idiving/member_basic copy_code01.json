@@ -1,0 +1,926 @@
+{
+    "basic": {
+        "joinYear": "", #年分
+        "identity": "", #身分
+        "latestLicense": "", #課程 最新牌照
+        "idNumber": "", #身分證字號
+        "profileImgURL": "",
+        "chineseName": "", #姓名
+        "englishName": "", #英文姓名
+        "birthday": "", #出生日期
+        "mobilePhone": "", #行動電話
+        "emailAddr": "", #電子郵件地址
+        "address": "", #地址
+        "zipcode": "", #郵遞區號
+        "memberpayDate": "", #繳費日期
+        "memberexpiryDate": "", 會員期限
+        "isMember": "", #
+        "mid": "", #MID
+        "emergencyContactName": "", #緊急連絡人
+        "emergencyContactPhone": "", #連絡人電話
+        "emergencyContactRelation": "",
+        "scubaDiving": false,
+        "freeDiving": false,
+        "divingCenter": "",
+        "nickName": "", #暱稱
+        "facebookAccount": "",
+        "homePhone": "", #住家電話
+        "companyName": "", #公司名稱
+        "companyJobTitle": "", #公司職稱
+        "companyPhone": "", #公司電話
+        "source": "",
+        "remark": "", #需求 / 備註
+        "nationality" #國籍
+    },
+    "body": {
+        "bloodType": "", #血型
+        "height": 0, #身高
+        "weight": 0, #體重
+        "leftEye": 0, #左眼
+        "rightEye": 0, #右眼
+        "contactLens": false,
+        "counterweight": 0 #配重,
+        "fdcounterweight": 0 #FD配重
+    },
+    "equipment": {
+        "mask": { #面鏡
+            "holdType": false, #持有
+            "brand": "", #品牌
+            "model": "" #型號
+        },
+        "snorkel": { #呼吸管
+            "holdType": false, #持有
+            "brand": "", #品牌
+            "model": "" #型號
+        },
+        "wetsuit": { #防寒衣
+            "holdType": false, #持有
+            "brand": "",
+            "size": ""
+        },
+        "gloves": { #手套
+            "holdType": false, #持有
+            "brand": "",
+            "size": "",
+            "model": ""
+        },
+        "shoes": { #套鞋
+            "holdType": false, #持有
+            "brand": "",
+            "size": "",
+            "model": ""
+        },
+        "fins": { #蛙鞋
+            "holdType": false, #持有
+            "brand": "",
+            "size": "",
+            "model": ""
+        },
+        "bc": { #bc
+            "holdType": false, #持有
+            "brand": "",
+            "size": "",
+            "model": "",
+            "serialNumber": "",
+            "latestUpdate": "",
+            "id": ""
+        },
+        "regulator" : { #調節器
+            "holdType": false, #持有
+            "brand": "",
+            "model": "",
+            "serialNumber": "",
+            "latestUpdate": "",
+            "id": ""
+        },
+        "backupRegulator" : { #備用調節器
+            "holdType": false, #持有
+            "brand": "",
+            "model": "",
+            "serialNumber": "",
+            "latestUpdate": "",
+            "id": ""
+        },
+        "watch": { #電腦錶
+            "holdType": false, #持有
+            "brand": "",
+            "model": ""
+        },
+        "transport": { #裝備帶
+            "holdType": false, #持有
+            "method": "",
+            "takeCount": ""
+        },
+        "fdmask": { #fd面鏡
+            "holdType": false, #持有
+            "brand": "", #品牌
+            "model": "" #型號
+        },
+        "fdweightblet": { #FD配重帶
+            "holdType": false, #持有
+            "brand": "", #品牌
+            "model": "" #型號
+        },
+        "fdfins": { #FD蛙鞋
+            "holdType": false, #持有
+            "brand": "", #品牌
+            "model": "" #型號
+        },
+        "fdwetsuit": { #FD蛙鞋
+            "holdType": false, #持有
+            "brand": "", #品牌
+            "model": "" #型號
+        }
+    },
+    "certificate": {
+        "tank100": false,
+        "tank300": false,
+        "tank500": false,
+        "tank1000": false,
+        "aowd": false,
+        "sp": false,
+        "md": false
+    },
+    "license": {
+        "openWater": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false },
+                    "CLASSROOM_2": { "courseId": "", "finished": false },
+                    "CLASSROOM_3": { "courseId": "", "finished": false }
+                },
+                "pool": {
+                    "POOL_1": { "courseId": "", "finished": false },
+                    "POOL_2": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false },
+                    "OPENWATER_2": { "courseId": "", "finished": false },
+                    "OPENWATER_3": { "courseId": "", "finished": false },
+                    "OPENWATER_4": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "openWaterWeekday": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false },
+                    "CLASSROOM_2": { "courseId": "", "finished": false }
+                },
+                "pool": {
+                    "POOL_1": { "courseId": "", "finished": false },
+                    "POOL_2": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false },
+                    "OPENWATER_2": { "courseId": "", "finished": false },
+                    "OPENWATER_3": { "courseId": "", "finished": false },
+                    "OPENWATER_4": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "advOpenWater": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false },
+                    "OPENWATER_2": { "courseId": "", "finished": false },
+                    "OPENWATER_3": { "courseId": "", "finished": false },
+                    "OPENWATER_4": { "courseId": "", "finished": false },
+                    "OPENWATER_5": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "nitrox": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "deepDive": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "nightLimited": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "navigation": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "reactRight": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "stressRescue": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "boatDiving": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "searchRecovery": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "perfectBuoyancy": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "ecoDiver": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false },
+                    "CLASSROOM_2": { "courseId": "", "finished": false },
+                    "CLASSROOM_3": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false },
+                    "OPENWATER_2": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "photoVideo": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false },
+                    "CLASSROOM_2": { "courseId": "", "finished": false },
+                    "CLASSROOM_3": { "courseId": "", "finished": false }
+                },
+                "pool": {
+                    "POOL_1": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "drySuitDiving": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false }
+                },
+                "pool": {
+                    "POOL_1": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "recreationalSidemount": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": {
+                    "CLASSROOM_1": { "courseId": "", "finished": false }
+                },
+                "pool": {
+                    "POOL_1": { "courseId": "", "finished": false }
+                },
+                "openWater": {
+                    "OPENWATER_1": { "courseId": "", "finished": false }
+                }
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "xrNitrox": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "xrDiving": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "xrFundamental": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "xrTechnical": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "ccrDiving": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "diveControl": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "instructorTrainer": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "freeDivingLv1": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "freeDivingLv2": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "freeDivingLv3": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "fdInstructorLv1": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "fdInstructorLv2": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        },
+        "fdInstructorLv3": {
+            "beforeClass": {
+                "deposit": {
+                    "date": "",
+                    "amount": 0
+                },
+                "payment": {
+                    "date": "",
+                    "amount": 0
+                }
+            },
+            "duringClass": {
+                "classroom": [
+                ],
+                "pool": [
+                ],
+                "openWater": [
+                ]
+            },
+            "afterClass": {
+                "ableToGet": false,
+                "apply": false,
+                "arrive": false,
+                "taken": false
+            }
+        }
+    }
+}
