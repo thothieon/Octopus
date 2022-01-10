@@ -4,6 +4,8 @@ import os, sys
 import codecs
 import pickle
 
+from pyasn1.type.univ import Null
+
 from googleSheet import GoogleSheet
 from mongodbstore import MongodbStore
 from mysqlstore import MysqlStore
@@ -22,6 +24,8 @@ google_sheet_doc_key_test = '18oBoHh4YjPcPHLn5m59r4v6_QI3CpgYqgD4rzLdS8Ds'
 google_sheet_doc_key = '1ZdqwqFj9gUKzCbA4NQ2SATYCaxV4OL017tMhFUJBMoA'
 #04 課程報名表
 google_sheet_doc_key_04 = '1sS9nUtXOg7JLSTVJVIQwXNYbNlbaxAu9b0Z_aDdVN-4'
+#自由潛水活動/補結訓/團練 報名表單
+google_sheet_doc_key_04FD = '1-k6SJjhLGfda9xPp_bnsYMmLheQn-JpK4hlZs_Wj3T8'
 #06 出團報名表
 google_sheet_doc_key_06 = '1XLkvfo8UR_JDv7ZZYgbUHoUTdnnhEUsY8x6WEZ79mvA'
 #21_年度價格表 Price List
@@ -41,6 +45,7 @@ def GoogleSheetparse04():
     googleSheet = GoogleSheet(diving_center)
     name = "04A"
     members = googleSheet.parse04course(doc_key=google_sheet_doc_key_04, name=name, sheet=0)
+    #print("GoogleSheetparse04_members", members.df.loc())
     print("GoogleSheetparse04_End")
 
 def GoogleSheetSaveXlsx():
@@ -59,11 +64,43 @@ def GoogleSheetSaveXlsx():
 
 def ThisMonthNumberOfPeopleRegistered():
     print("ThisMonthNumberOfPeopleRegistered_Init")
-    mysqlStore = MysqlStore(diving_center)
-    mysqlData = mysqlStore.mysqltest(diving_center)
-    print("ThisMonthNumberOfPeopleRegistered_mysqlData", mysqlData)
-    LineNotifyAPI.lineNotifyMessageTest(mysqlData)
+    
+    mysqlDataMsg = MysqlStore.mysqltest()
+    print("ThisMonthNumberOfPeopleRegistered_mysqlData", mysqlDataMsg)
+
+    LineNotifyAPI.lineNotifyMessageTest(mysqlDataMsg)
     print("ThisMonthNumberOfPeopleRegistered_linenotifyapi")
+
+def DailyDataCollection():
+    print("DailyDataCollection_Init")
+    #1 確認表單當天有無新交易紀錄
+    #2 查詢mysql有無這筆紀錄
+    #3 有的話新增到mysql裡面，通知我有資料新增並註記這筆異常  沒有的話新增到mysql裡面通知我有資料新增
+    # parse member from google sheet
+    googleSheet = GoogleSheet(diving_center)
+    name = "04A"
+    #tradingdata=NULL
+    dfmembers = googleSheet.parse04CourseDayTrading(doc_key=google_sheet_doc_key_04, name=name, sheet=0, tradingdata='01/05')
+    print("GoogleSheetparse04_members", dfmembers)
+    print("GoogleSheetparse04_members_no", len(dfmembers.index))
+    for colno in range(len(dfmembers.index)):
+        mysqlDataMsg = MysqlStore.TransactionRecordQuery(dfmembers.iat[colno,2], dfmembers.iat[colno,4])
+        if mysqlDataMsg == 'norepeat':
+            print("GoogleSheetparse04_norepeat")
+            MysqlStore.TransactionRecorAdd(dfmembers=dfmembers, intno=colno)
+        else:
+            print("GoogleSheetparse04_count")
+            
+        colno = colno + 1
+    
+    mysqlDataMsg = MysqlStore.TransactionRecordQuery(dfmembers.iat[0,2], dfmembers.iat[0,4])
+    if mysqlDataMsg == 'norepeat':
+        print("GoogleSheetparse04_norepeat")
+        LineNotifyAPI.lineNotifyMessageDailyTest('test')
+    else:
+        print("GoogleSheetparse04_count")
+        LineNotifyAPI.lineNotifyMessageDailyTest('test')
+    print("GoogleSheetparse04_End")
 
 def BirthdayMaturity():
     print("BirthdayMaturity_Init")
@@ -71,8 +108,7 @@ def BirthdayMaturity():
 def MemberMaturity():
     print("MemberMaturity_Init")
 
-
-def addMemberSaveCSV():
+def addMemberSaveCSV(): 
     print("addMemberSaveCSV_Init")
     # parse member from google sheet
     googleSheet = GoogleSheet(diving_center)
@@ -125,21 +161,29 @@ def MongoDBTest():
     mongodbstore = MongodbStore(diving_center)
     mongodbstore.addone()
 
+
+def main1():
+    print("main1")
+    DailyDataCollection()
+
+
 def main(argv):
     print("main")
-    ThisMonthNumberOfPeopleRegistered()
-    
-    #GoogleSheetparse04()
-    
-    #addMemberSaveCSV()
-    #addMemberToMongoDB()
-    #MongoDBTest()
-    #if argv[1] == '-Da':
-    #    addMemberToMongoDB()
-    #elif argv[1] == '-Sc':
-    #    addMemberSaveCSV()
+
+    if argv[1] == '-Da':
+        addMemberToMongoDB()
+    elif argv[1] == '-Sc':
+        addMemberSaveCSV()
+    else:
+        DailyDataCollection()
+        #ThisMonthNumberOfPeopleRegistered()
+        #GoogleSheetparse04()
+        #addMemberSaveCSV()
+        #addMemberToMongoDB()
+        #MongoDBTest()
 
 if __name__ == '__main__':
-    main(sys.argv)
+    #main(sys.argv)
+    main1()
 
 
