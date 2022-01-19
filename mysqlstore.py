@@ -77,6 +77,28 @@ class MysqlStore():
         print(msg)
         return msg
 
+    def CourseStatisticsQuery(command):
+        print("mysqltestinit")
+        # 建立Connection物件
+        conn = pymysql.connect(**db_iDivingSettings57)
+        # 建立Cursor物件
+        with conn.cursor() as cursor:
+            # 新增資料指令
+            #command = "SELECT * FROM `TransactionRecord` WHERE (課程選擇 LIKE '%自由潛水%' OR 課程選擇 LIKE '%FD%' OR 課程選擇 LIKE '%LV1%');"
+            # 執行指令
+            cursor.execute(command)
+            # 取得所有資料
+            result = cursor.fetchall()
+            # 取得第一筆資料
+            #result = cursor.fetchone()
+            print(" ")
+            print("Read", cursor.rowcount, "row(s) of data.")
+            print(" ")
+            print(result)
+            print(" ")
+
+        return cursor.rowcount
+
     def TransactionRecordQuery(name, tradingdata):
         print("TransactionRecordQuery")
         # 建立Connection物件

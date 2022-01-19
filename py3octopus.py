@@ -4,6 +4,7 @@ import os
 import sys
 import codecs
 import pickle
+import datetime
 
 from pyasn1.type.univ import Null
 
@@ -90,21 +91,17 @@ def DailyDataCollection():
     print("GoogleSheetparse04_members", dfmembers)
     print("GoogleSheetparse04_members_no", len(dfmembers.index))
     for colno in range(len(dfmembers.index)):
-        mysqlTradeMsg = MysqlStore.TransactionRecordQuery(
-            dfmembers.iat[colno, 2], dfmembers.iat[colno, 4])
-        mysqlBasicpersonalMsg = MysqlStore.BasicPersonalDataQuery(
-            dfmembers.iat[colno, 2], dfmembers.iat[colno, 3])
+        mysqlTradeMsg = MysqlStore.TransactionRecordQuery(dfmembers.iat[colno, 2], dfmembers.iat[colno, 4])
+        mysqlBasicpersonalMsg = MysqlStore.BasicPersonalDataQuery(dfmembers.iat[colno, 2], dfmembers.iat[colno, 3])
         if mysqlTradeMsg == 'norepeat':
             print("GoogleSheetparse04_norepeat")
             MysqlStore.TransactionRecorAdd(
                 dfmembers=dfmembers, intno=colno, state="")
             if mysqlBasicpersonalMsg == 'nodata':
-                MysqlStore.BasicPersonalDataAdd(
-                    dfmembers=dfmembers, intno=colno, state="")
+                MysqlStore.BasicPersonalDataAdd(dfmembers=dfmembers, intno=colno, state="")
         else:
             print("GoogleSheetparse04_count")
-            MysqlStore.TransactionRecorAdd(
-                dfmembers=dfmembers, intno=colno, state="repeat")
+            MysqlStore.TransactionRecorAdd(dfmembers=dfmembers, intno=colno, state="repeat")
 
         TradeMsg = mysqlTradeMsg
         colno = colno + 1
@@ -127,6 +124,38 @@ def BirthdayMaturity():
 
 def MemberMaturity():
     print("MemberMaturity_Init")
+
+def MonthlyCourseStatistics(status):
+    print("MonthlyCourseStatistics_Init")
+    #帶下個月數值查詢，取下個月生日名單
+    today = datetime.date.today()
+    print(u'現在日期', today)
+    #取當月
+    tomonth = datetime.date.today().strftime('%m')
+    #上個月
+    lastMonth = int(tomonth)-1
+    if lastMonth == 0:
+        lastMonth = lastMonth + 1
+
+    #找上個月OWD課程報名人數
+    command = "SELECT * FROM `TransactionRecord` WHERE (課程選擇 LIKE '%OWD%' OR '%開放水域%');"
+    OWDCount = MysqlStore.CourseStatisticsQuery(command=command)
+    msg = '\n'
+    msg += u'經統計' + str(lastMonth) + u'月份 \n當月課程報名人數數量如下:\n'
+    msg += u'OWD課程報名 ' + str(OWDCount) +' 人\n'
+    #找上個月FDLV1課程報名人數
+    command = "SELECT * FROM `TransactionRecord` WHERE (課程選擇 LIKE '%自由潛水%' OR '%FD%' OR '%LV1%');"
+    FDLV1Count = MysqlStore.CourseStatisticsQuery(command=command)
+    msg += u'FDLV1課程報名 ' + str(FDLV1Count) +' 人\n'
+    #找上個月其他課程報名人數
+    command = "SELECT * FROM `TransactionRecord` WHERE (課程選擇 NOT LIKE '%OWD%' OR '%開放水域%') AND (課程選擇 NOT LIKE '%自由潛水%' OR '%FD%' OR '%LV1%');"
+    OtherCount = MysqlStore.CourseStatisticsQuery(command=command)
+    msg += u'其他課程報名 ' + str(OtherCount) +' 人'
+
+    if status == True:
+        LineNotifyAPI.lineNotifyMessageCourse(msg)
+    elif  status == False:
+        LineNotifyAPI.lineNotifyMessageDaily(msg)
 
 def SendTest():
     LineNotifyAPI.lineNotifyMessageDaily('傳送測試訊息')
@@ -190,24 +219,24 @@ def MongoDBTest():
     mongodbstore.addone()
 
 
-def main1():
-    print("main1")
-    DailyDataCollection()
-
-
-def main(argv):
+def main(sargv):
     print("main")
 
-    if argv[1] == '-Da':
+    if sargv == '-Da':
         addMemberToMongoDB()
-    elif argv[1] == '-Sc':
+    elif sargv == '-Sc':
         addMemberSaveCSV()
-    elif argv[1] == '-Ddc':
+    elif sargv == '-Ddc':
         DailyDataCollection()
-    elif argv[1] == '-Tt':
+    elif sargv == '-Mcda':
+        MonthlyCourseStatistics(status=True)
+    elif sargv == '-Mcdat':
+        MonthlyCourseStatistics(status=False)
+    elif sargv == '-Tt':
         SendTest()
     else:
-        DailyDataCollection()
+        MonthlyCourseStatistics(status=False)
+        #DailyDataCollection()
         # ThisMonthNumberOfPeopleRegistered()
         # GoogleSheetparse04()
         # addMemberSaveCSV()
@@ -216,5 +245,9 @@ def main(argv):
 
 
 if __name__ == '__main__':
-    main(sys.argv)
-    #main1()
+    if len(sys.argv) < 2:
+        print('no argument')
+        sargv = 'XXX'
+    else:
+        sargv = sys.argv[1]
+    main(sargv)

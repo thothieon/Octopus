@@ -35,6 +35,16 @@ class LineNotifyAPI():
         r = requests.post("https://notify-api.line.me/api/notify", headers=headers, params=payload)
         return r.status_code
 
+    def lineNotifyMessageCourse(msg):
+        headers = {
+            "Authorization": "Bearer " + tokencourse,
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+
+        payload = {'message': msg}
+        r = requests.post("https://notify-api.line.me/api/notify", headers=headers, params=payload)
+        return r.status_code
+
     def lineNotifyMessageDaily(msg):
         headers = {
             "Authorization": "Bearer " + tokenMoney,
