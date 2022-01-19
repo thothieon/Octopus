@@ -4,19 +4,25 @@ import os, sys
 import codecs
 import pickle
 
-import pandas as pd
-
 from googleSheet import GoogleSheet
 from mongodbstore import MongodbStore
+from mysqlstore import MysqlStore
 
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+#
 
 diving_center = 'idiving'
 #google_sheet_doc_key = '199CaQ4LvE0iPr-XtkhtsLCLob1cSQhTNvNo1E4iyDdM'
+#test
+google_sheet_doc_key_test = '18oBoHh4YjPcPHLn5m59r4v6_QI3CpgYqgD4rzLdS8Ds'
 #01 個人資料 Member
 google_sheet_doc_key = '1ZdqwqFj9gUKzCbA4NQ2SATYCaxV4OL017tMhFUJBMoA'
+#04 課程報名表
+google_sheet_doc_key_04 = '1sS9nUtXOg7JLSTVJVIQwXNYbNlbaxAu9b0Z_aDdVN-4'
+#06 出團報名表
+google_sheet_doc_key_06 = '1XLkvfo8UR_JDv7ZZYgbUHoUTdnnhEUsY8x6WEZ79mvA'
 #21_年度價格表 Price List
 #21_google_sheet_doc_key = '1ZdqwqFj9gUKzCbA4NQ2SATYCaxV4OL017tMhFUJBMoA'
 members_file = 'members.pickle'
@@ -27,6 +33,28 @@ def addMemberToFirestore():
 
 def addCourseToFirestore():
     print("addCourseToFirestore_Init")
+
+def GoogleSheetparse04():
+    print("GoogleSheetparse04_Init")
+    # parse member from google sheet
+    googleSheet = GoogleSheet(diving_center)
+    name = "04A"
+    members = googleSheet.parse04course(doc_key=google_sheet_doc_key_04, name=name, sheet=0)
+    print("GoogleSheetparse04_End")
+
+def GoogleSheetSaveXlsx():
+    print("testsqlpandas_Init")
+    # parse member from google sheet
+    googleSheet = GoogleSheet(diving_center)
+    #scope = ['https://www.googleapis.com/auth/spreadsheets']
+    #
+    #creds = ServiceAccountCredentials.from_service_account_file("gs_credentials.json", scopes=scope)
+    #gs = gspread.authorize(creds)
+    #
+    #sheet = gs.open_by_url('https://docs.google.com/spreadsheets/d/1ZdqwqFj9gUKzCbA4NQ2SATYCaxV4OL017tMhFUJBMoA/edit#gid=0')
+    #worksheet = sheet.get_worksheet(0)
+    name = "06A"
+    members = googleSheet.parseSaveXlsx(doc_key=google_sheet_doc_key_06, name=name, sheet=6)
 
 def addMemberSaveCSV():
     print("addMemberSaveCSV_Init")
@@ -83,13 +111,14 @@ def MongoDBTest():
 
 def main(argv):
     print("main")
+    GoogleSheetparse04()
     #addMemberSaveCSV()
     #addMemberToMongoDB()
     #MongoDBTest()
-    if argv[1] == '-Da':
-        addMemberToMongoDB()
-    elif argv[1] == '-Sc':
-        addMemberSaveCSV()
+    #if argv[1] == '-Da':
+    #    addMemberToMongoDB()
+    #elif argv[1] == '-Sc':
+    #    addMemberSaveCSV()
 
 if __name__ == '__main__':
     main(sys.argv)
