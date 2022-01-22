@@ -132,23 +132,25 @@ def MonthlyCourseStatistics(status):
     print(u'現在日期', today)
     #取當月
     tomonth = datetime.date.today().strftime('%m')
+    #取當年
+    toyear = datetime.date.today().strftime('%y')
     #上個月
     lastMonth = int(tomonth)-1
     if lastMonth == 0:
         lastMonth = lastMonth + 1
 
     #找上個月OWD課程報名人數
-    command = "SELECT * FROM `TransactionRecord` WHERE (課程選擇 LIKE '%OWD%' OR '%開放水域%');"
+    command = "SELECT * FROM `TransactionRecord` WHERE (時間戳記 LIKE '%" + str(toyear) + "/" + str(lastMonth) + "%') AND (課程選擇 LIKE '%OWD%' OR '%開放水域%');"
     OWDCount = MysqlStore.CourseStatisticsQuery(command=command)
     msg = '\n'
     msg += u'經統計' + str(lastMonth) + u'月份 \n當月課程報名人數數量如下:\n'
     msg += u'OWD課程報名 ' + str(OWDCount) +' 人\n'
     #找上個月FDLV1課程報名人數
-    command = "SELECT * FROM `TransactionRecord` WHERE (課程選擇 LIKE '%自由潛水%' OR '%FD%' OR '%LV1%');"
+    command = "SELECT * FROM `TransactionRecord` WHERE (時間戳記 LIKE '%" + str(toyear) + "/" + str(lastMonth) + "%') AND (課程選擇 LIKE '%自由潛水%' OR '%FD%' OR '%LV1%');"
     FDLV1Count = MysqlStore.CourseStatisticsQuery(command=command)
     msg += u'FDLV1課程報名 ' + str(FDLV1Count) +' 人\n'
     #找上個月其他課程報名人數
-    command = "SELECT * FROM `TransactionRecord` WHERE (課程選擇 NOT LIKE '%OWD%' OR '%開放水域%') AND (課程選擇 NOT LIKE '%自由潛水%' OR '%FD%' OR '%LV1%');"
+    command = "SELECT * FROM `TransactionRecord` WHERE (時間戳記 LIKE '%" + str(toyear) + "/" + str(lastMonth) + "%') AND (課程選擇 NOT LIKE '%OWD%' OR '%開放水域%') AND (課程選擇 NOT LIKE '%自由潛水%' OR '%FD%' OR '%LV1%');"
     OtherCount = MysqlStore.CourseStatisticsQuery(command=command)
     msg += u'其他課程報名 ' + str(OtherCount) +' 人'
 
