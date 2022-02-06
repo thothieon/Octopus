@@ -109,6 +109,7 @@ class MysqlStore():
 
         return cursor.rowcount
 
+    #判斷 TransactionRecord(交易紀錄) 中文姓名 & 繳費紀錄 這兩欄資料是否重複
     def TransactionRecordQuery(name, tradingdata):
         print("TransactionRecordQuery")
         # 建立Connection物件
@@ -157,6 +158,7 @@ class MysqlStore():
 
         print("Finished")
 
+    # 判斷 BasicPersonalData(基本資料) 姓名 & 身分證字號 這兩欄資料是否重複
     def BasicPersonalDataQuery(name, idnumber):
         print("BasicPersonalDataQuery")
         # 建立Connection物件
