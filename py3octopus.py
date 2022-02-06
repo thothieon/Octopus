@@ -91,17 +91,20 @@ def DailyDataCollection():
     print("GoogleSheetparse04_members", dfmembers)
     print("GoogleSheetparse04_members_no", len(dfmembers.index))
     for colno in range(len(dfmembers.index)):
+        #詢問 TransactionRecord(交易紀錄) 中文姓名 & 繳費紀錄 這兩欄資料是否重複
         mysqlTradeMsg = MysqlStore.TransactionRecordQuery(dfmembers.iat[colno, 2], dfmembers.iat[colno, 4])
+        #詢問 BasicPersonalData(基本資料) 姓名 & 身分證字號 這兩欄資料是否重複
         mysqlBasicpersonalMsg = MysqlStore.BasicPersonalDataQuery(dfmembers.iat[colno, 2], dfmembers.iat[colno, 3])
         if mysqlTradeMsg == 'norepeat':
-            print("GoogleSheetparse04_norepeat")
-            MysqlStore.TransactionRecorAdd(
-                dfmembers=dfmembers, intno=colno, state="")
+            # 新增這筆資料
+            print("GoogleSheetparse04_norepeat 這筆是新資料")
+            MysqlStore.TransactionRecorAdd(dfmembers=dfmembers, intno=colno, state="")
             if mysqlBasicpersonalMsg == 'nodata':
                 MysqlStore.BasicPersonalDataAdd(dfmembers=dfmembers, intno=colno, state="")
         else:
-            print("GoogleSheetparse04_count")
-            MysqlStore.TransactionRecorAdd(dfmembers=dfmembers, intno=colno, state="repeat")
+            # 這筆資料 TransactionRecord(交易紀錄) 資料庫有了
+            print("GoogleSheetparse04_repeat 這筆資料資料庫有了")
+            #MysqlStore.TransactionRecorAdd(dfmembers=dfmembers, intno=colno, state="repeat")
 
         TradeMsg = mysqlTradeMsg
         colno = colno + 1
@@ -113,7 +116,7 @@ def DailyDataCollection():
         LineNotifyAPI.lineNotifyMessageDaily('有資料新增')
     else:
         print("GoogleSheetparse04_count")
-        LineNotifyAPI.lineNotifyMessageDaily('有資料 異常 新增，需整理TransactionRecor表單')
+        #LineNotifyAPI.lineNotifyMessageDaily('有資料 異常 新增，需整理TransactionRecor表單')
 
     print("GoogleSheetparse04_End")
 
@@ -237,8 +240,8 @@ def main(sargv):
     elif sargv == '-Tt':
         SendTest()
     else:
-        MonthlyCourseStatistics(status=False)
-        #DailyDataCollection()
+        #MonthlyCourseStatistics(status=False)
+        DailyDataCollection()
         # ThisMonthNumberOfPeopleRegistered()
         # GoogleSheetparse04()
         # addMemberSaveCSV()
