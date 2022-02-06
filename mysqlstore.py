@@ -36,6 +36,16 @@ db_iDivingSettings249 = {
     "charset": "utf8"
 }
 
+# home資料庫參數設定
+db_homeSettings157 = {
+    "host": "192.168.5.157",
+    "port": 3306,
+    "user": "admin",
+    "password": "admin220",
+    "db": "iDiving",
+    "charset": "utf8"
+}
+
 
 class MysqlStore():
     def __init__(self, diving_center):
