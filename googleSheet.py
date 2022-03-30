@@ -139,6 +139,8 @@ class GoogleSheet():
 
         datetime_dt = datetime.datetime.today()
         print("GoogleSheet_parse04CourseDayTrading_datetime ", datetime_dt.strftime("%Y%m%d%H%M%S"))
+        yearno = datetime_dt.strftime("%m")
+        print("GoogleSheet_parse04CourseDayTrading_year ", yearno)
         moonno = datetime_dt.strftime("%m")
         print("GoogleSheet_parse04CourseDayTrading_moon ", moonno)
         dayno = datetime_dt.strftime("%d")
