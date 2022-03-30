@@ -142,7 +142,7 @@ class MysqlStore():
 
         print("Finished")
 
-    def TransactionRecorAdd(dfmembers, intno, state):
+    def TransactionRecorAdd(dfmembers, into, state):
         print("TransactionRecordAdd")
         # 建立Connection物件
         conn = pymysql.connect(**db_iDivingSettings57)
@@ -150,8 +150,8 @@ class MysqlStore():
         with conn.cursor() as cursor:
             # 新增資料指令
             command = "INSERT INTO TransactionRecord(時間戳記, 課程選擇, 中文姓名, 身分證字號, 手機號碼, EMail, 繳費紀錄, 狀態)VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
-            val = (dfmembers.iat[intno, 0], dfmembers.iat[intno, 1], dfmembers.iat[intno, 2], dfmembers.iat[intno,
-                    3], dfmembers.iat[intno, 20], dfmembers.iat[intno, 25], dfmembers.iat[intno, 4], str(state))
+            val = (dfmembers.iat[into, 0], dfmembers.iat[into, 1], dfmembers.iat[into, 2], dfmembers.iat[into,
+                    3], dfmembers.iat[into, 20], dfmembers.iat[into, 25], dfmembers.iat[into, 4], str(state))
             # 執行指令
             cursor.execute(command, val)
             conn.commit()

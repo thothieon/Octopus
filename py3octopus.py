@@ -98,7 +98,7 @@ def DailyDataCollection():
         if mysqlTradeMsg == 'norepeat':
             # 新增這筆資料
             print("GoogleSheetparse04_norepeat 這筆是新資料")
-            MysqlStore.TransactionRecorAdd(dfmembers=dfmembers, intno=colno, state="")
+            MysqlStore.TransactionRecorAdd(dfmembers=dfmembers, into=colno, state="")
             if mysqlBasicpersonalMsg == 'nodata':
                 MysqlStore.BasicPersonalDataAdd(dfmembers=dfmembers, intno=colno, state="")
         else:
