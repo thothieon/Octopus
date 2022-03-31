@@ -77,7 +77,7 @@ def ThisMonthNumberOfPeopleRegistered():
     LineNotifyAPI.lineNotifyMessageTest(mysqlDataMsg)
     print("ThisMonthNumberOfPeopleRegistered_linenotifyapi")
 
-
+#確認表單當天有無新交易紀錄
 def DailyDataCollection():
     print("DailyDataCollection_Init")
     # 1 每天一次，確認表單當天有無新交易紀錄
@@ -128,6 +128,7 @@ def BirthdayMaturity():
 def MemberMaturity():
     print("MemberMaturity_Init")
 
+#輸出上個月統計數據
 def MonthlyCourseStatistics(status):
     print("MonthlyCourseStatistics_Init")
     #帶下個月數值查詢，取下個月生日名單
@@ -155,11 +156,27 @@ def MonthlyCourseStatistics(status):
     #找上個月其他課程報名人數
     command = "SELECT * FROM `TransactionRecord` WHERE (時間戳記 LIKE '%" + str(toyear) + "/" + str(lastMonth) + "%') AND (課程選擇 NOT LIKE '%OWD%' OR '%開放水域%') AND (課程選擇 NOT LIKE '%自由潛水%' OR '%FD%' OR '%LV1%');"
     OtherCount = MysqlStore.CourseStatisticsQuery(command=command)
-    msg += u'其他課程報名 ' + str(OtherCount) +' 人'
+    msg += u'其他課程報名 ' + str(OtherCount) +' 人\n\n'
+    #年度統計
+    msg += u'經統計當年份 \n課程報名人數數量如下: \n'
+    #整年度OWD課程報名人數
+    command = "SELECT * FROM `TransactionRecord` WHERE (時間戳記 LIKE '%" + str(toyear) + "%') AND (課程選擇 LIKE '%OWD%' OR '%開放水域%');"
+    OWDallCount = MysqlStore.CourseStatisticsQuery(command=command)
+    msg += str(toyear) + u'年度累積OWD課程報名 ' + str(OWDallCount) +' 人\n'
+    #整年度FDLV1課程報名人數
+    command = "SELECT * FROM `TransactionRecord` WHERE (時間戳記 LIKE '%" + str(toyear) + "%') AND (課程選擇 LIKE '%自由潛水%' OR '%FD%' OR '%LV1%');"
+    FDLV1allCount = MysqlStore.CourseStatisticsQuery(command=command)
+    msg += str(toyear) + u'年度累積FDLV1課程報名 ' + str(FDLV1allCount) +' 人\n'
+    #整年度其他課程報名人數
+    command = "SELECT * FROM `TransactionRecord` WHERE (時間戳記 LIKE '%" + str(toyear) + "%') AND (課程選擇 NOT LIKE '%OWD%' OR '%開放水域%') AND (課程選擇 NOT LIKE '%自由潛水%' OR '%FD%' OR '%LV1%');"
+    OtherCount = MysqlStore.CourseStatisticsQuery(command=command)
+    msg += str(toyear) + u'年度累積其他課程報名 ' + str(OtherCount) +' 人'
 
     if status == True:
+        #傳送到課程的群組
         LineNotifyAPI.lineNotifyMessageCourse(msg)
     elif  status == False:
+        #傳送到測試的群組
         LineNotifyAPI.lineNotifyMessageDaily(msg)
 
 def SendTest():
@@ -240,8 +257,8 @@ def main(sargv):
     elif sargv == '-Tt':
         SendTest()
     else:
-        #MonthlyCourseStatistics(status=False)
-        DailyDataCollection()
+        MonthlyCourseStatistics(status=False)
+        #DailyDataCollection()
         # ThisMonthNumberOfPeopleRegistered()
         # GoogleSheetparse04()
         # addMemberSaveCSV()
