@@ -150,8 +150,14 @@ class MysqlStore():
         with conn.cursor() as cursor:
             # 新增資料指令
             command = "INSERT INTO TransactionRecord(時間戳記, 課程選擇, 中文姓名, 身分證字號, 手機號碼, EMail, 繳費紀錄, 狀態)VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
-            val = (dfmembers.iat[into, 0], dfmembers.iat[into, 1], dfmembers.iat[into, 2], dfmembers.iat[into,
-                    3], dfmembers.iat[into, 20], dfmembers.iat[into, 25], dfmembers.iat[into, 4], str(state))
+            val = (dfmembers.iat[into, 0],  #時間戳記
+                    dfmembers.iat[into, 1],  #課程選擇
+                    dfmembers.iat[into, 2],  #中文姓名
+                    dfmembers.iat[into, 3],  #身分證字號
+                    dfmembers.iat[into, 26].replace('-', ''), #手機號碼
+                    dfmembers.iat[into, 31], #EMail
+                    dfmembers.iat[into, 4],  #繳費紀錄
+                    str(state)) #狀態
             # 執行指令
             cursor.execute(command, val)
             conn.commit()
@@ -200,31 +206,31 @@ class MysqlStore():
             command = "INSERT INTO BasicPersonalData(年份, 姓名, 行動電話, 身分證字號, 備註, 公司, 職稱, 公司電話, 來源, 住家電話, 暱稱, 郵遞區號, 地址, 緊急連絡人, 連絡人電話, 出生日期, 英文姓名, 國籍, EMail, MID, 繳費日期, 會員期限, 血型, 左眼, 右眼, 身高, 體重)VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             val = (toyear,  # 年份
                     dfmembers.iat[intno, 2],  # 姓名
-                    dfmembers.iat[intno, 20].replace('-', ''),  # 行動電話
+                    dfmembers.iat[intno, 26].replace('-', ''),  # 行動電話
                     dfmembers.iat[intno, 3],  # 身分證字號
                     dfmembers.iat[intno, 76],  # 備註
                     '',  # 公司
                     '',  # 職稱
-                    dfmembers.iat[intno, 24],  # 公司電話
-                    dfmembers.iat[intno, 48],  # 來源
+                    dfmembers.iat[intno, 30],  # 公司電話
+                    dfmembers.iat[intno, 54],  # 來源
                     '',  # 住家電話
                     '',  # 暱稱
                     '',  # 郵遞區號
-                    dfmembers.iat[intno, 27],  # 地址
-                    dfmembers.iat[intno, 35],  # 緊急連絡人
-                    dfmembers.iat[intno, 36],  # 連絡人電話
-                    dfmembers.iat[intno, 21],  # 出生日期
-                    dfmembers.iat[intno, 22],  # 英文姓名
-                    dfmembers.iat[intno, 23],  # 國籍
-                    dfmembers.iat[intno, 24],  # EMail
+                    dfmembers.iat[intno, 33],  # 地址
+                    dfmembers.iat[intno, 41],  # 緊急連絡人
+                    dfmembers.iat[intno, 42],  # 連絡人電話
+                    dfmembers.iat[intno, 27],  # 出生日期
+                    dfmembers.iat[intno, 28],  # 英文姓名
+                    dfmembers.iat[intno, 29],  # 國籍
+                    dfmembers.iat[intno, 31],  # EMail
                     '',  # MID
                     '',  # 繳費日期
                     '',  # 會員期限
-                    dfmembers.iat[intno, 37],  # 血型
-                    dfmembers.iat[intno, 32],  # 左眼
-                    dfmembers.iat[intno, 31],  # 右眼
-                    dfmembers.iat[intno, 28],  # 身高
-                    dfmembers.iat[intno, 29]  # 體重
+                    dfmembers.iat[intno, 43],  # 血型
+                    dfmembers.iat[intno, 38],  # 左眼
+                    dfmembers.iat[intno, 37],  # 右眼
+                    dfmembers.iat[intno, 35],  # 身高
+                    dfmembers.iat[intno, 36]  # 體重
                     )
 
             # 執行指令
