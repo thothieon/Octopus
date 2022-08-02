@@ -131,6 +131,48 @@ class GoogleSheet():
         print("Finished")
         return sdff
 
+    def parse04CourseSetDayTrading(self, doc_key, name, sheet, tradingdata):
+        print("GoogleSheet_parse04CourseDayTrading")
+
+        # 參考
+        # https://www.learncodewithmike.com/2021/04/pandas-data-filtering.html
+
+        datetime_dt = datetime.datetime.today()
+        print("GoogleSheet_parse04CourseDayTrading_datetime ", datetime_dt.strftime("%Y%m%d%H%M%S"))
+        yearno = datetime_dt.strftime("%Y")
+        print("GoogleSheet_parse04CourseDayTrading_year ", yearno)
+        moonno = "03"
+        print("GoogleSheet_parse04CourseDayTrading_moon ", moonno)
+        dayno = "12"
+        print("GoogleSheet_parse04CourseDayTrading_day ", dayno)
+
+        sheets = self.google_cred.open_by_key(doc_key)
+        worksheet = sheets.get_worksheet(sheet)
+        worksheetcol = worksheet.get_all_values()
+
+        self.df = pd.DataFrame(worksheetcol)
+        # print(df)
+        # filt = df[4].isin(filt_value)  #篩選Job欄位有filt_value串列中的資料
+        # 分析欄位[0] 登入年分
+        # 分析欄位[4]] 繳費月份 & (關鍵字 定金 全額)
+        # 分析欄位[5]] 繳費月份 & (關鍵字 定金 全額)
+        # 年份
+        yearvalue = "2022"
+        # 繳費日期
+        if tradingdata == Null:
+            #tradingdata = str(moonno) + "/" + str(dayno)
+            tradingdata = str(moonno) + str(dayno)
+
+        print("GoogleSheet_parse04CourseDayTrading_tradingdata ", tradingdata)
+        filt = self.df[0].str.contains(yearvalue, na=False) & (((self.df[4].str.contains('訂金', na=False) | self.df[4].str.contains('定金', na=False) | self.df[4].str.contains(
+            '全額', na=False))) | (self.df[5].str.contains(tradingdata) & (self.df[5].str.contains('訂金', na=False) | self.df[5].str.contains('定金', na=False) | self.df[5].str.contains('全額', na=False))))
+        #print(self.df.loc[filt, [0, 1, 4, 5, 6]])
+        #sdff = self.df.loc[filt, [0, 1, 4, 5, 6]]
+        print(self.df.loc[filt])
+        sdff = self.df.loc[filt]
+        print("Finished")
+        return sdff
+
     def parse04CourseDayTrading(self, doc_key, name, sheet, tradingdata):
         print("GoogleSheet_parse04CourseDayTrading")
 
@@ -139,7 +181,7 @@ class GoogleSheet():
 
         datetime_dt = datetime.datetime.today()
         print("GoogleSheet_parse04CourseDayTrading_datetime ", datetime_dt.strftime("%Y%m%d%H%M%S"))
-        yearno = datetime_dt.strftime("%m")
+        yearno = datetime_dt.strftime("%Y")
         print("GoogleSheet_parse04CourseDayTrading_year ", yearno)
         moonno = datetime_dt.strftime("%m")
         print("GoogleSheet_parse04CourseDayTrading_moon ", moonno)

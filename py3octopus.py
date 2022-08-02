@@ -77,6 +77,39 @@ def ThisMonthNumberOfPeopleRegistered():
     LineNotifyAPI.lineNotifyMessageTest(mysqlDataMsg)
     print("ThisMonthNumberOfPeopleRegistered_linenotifyapi")
 
+#確認表單全部有無新交易紀錄
+def allDailyDataCollection():
+    print("allDailyDataCollection")
+    # 1 每天一次，確認表單當天有無新交易紀錄
+    # 2 查詢mysql有無這筆紀錄
+    # 3 有的話新增到mysql裡面，通知我有資料新增並註記這筆異常  沒有的話新增到mysql裡面通知我有資料新增
+    # parse member from google sheet
+    googleSheet = GoogleSheet(diving_center)
+    name = "04A"
+    # tradingdata=Null
+    #dfmembers = googleSheet.parse04CourseDayTrading(doc_key=google_sheet_doc_key_04, name=name, sheet=0, tradingdata=Null)
+    dfmembers = googleSheet.parse04CourseSetDayTrading(doc_key=google_sheet_doc_key_04, name=name, sheet=0, tradingdata=Null)
+    print("GoogleSheetparse04_members", dfmembers)
+    print("GoogleSheetparse04_members_no", len(dfmembers.index))
+    for colno in range(len(dfmembers.index)):
+        #詢問 TransactionRecord(交易紀錄) 中文姓名 & 繳費紀錄 這兩欄資料是否重複
+        mysqlTradeMsg = MysqlStore.TransactionRecordQuery(dfmembers.iat[colno, 2], dfmembers.iat[colno, 4])
+        #詢問 BasicPersonalData(基本資料) 姓名 & 身分證字號 這兩欄資料是否重複
+        mysqlBasicpersonalMsg = MysqlStore.BasicPersonalDataQuery(dfmembers.iat[colno, 2], dfmembers.iat[colno, 3])
+        if mysqlTradeMsg == 'norepeat':
+            # 新增這筆資料
+            print("GoogleSheetparse04_norepeat 這筆是新資料")
+            MysqlStore.TransactionRecorAdd(dfmembers=dfmembers, into=colno, state="")
+            if mysqlBasicpersonalMsg == 'nodata':
+                MysqlStore.BasicPersonalDataAdd(dfmembers=dfmembers, intno=colno, state="")
+        else:
+            # 這筆資料 TransactionRecord(交易紀錄) 資料庫有了
+            print("GoogleSheetparse04_repeat 這筆資料資料庫有了")
+            #MysqlStore.TransactionRecorAdd(dfmembers=dfmembers, intno=colno, state="repeat")
+
+        TradeMsg = mysqlTradeMsg
+        colno = colno + 1
+
 #確認表單當天有無新交易紀錄
 def DailyDataCollection():
     print("DailyDataCollection_Init")
@@ -111,9 +144,11 @@ def DailyDataCollection():
 
     if len(dfmembers.index) == 0:
         LineNotifyAPI.lineNotifyMessageDaily('無資料新增')
+        print("GoogleSheetparse04_repeat 無資料新增")
     elif len(dfmembers.index) > 0 and TradeMsg == 'norepeat':
         print("GoogleSheetparse04_norepeat")
         LineNotifyAPI.lineNotifyMessageDaily('有資料新增')
+        print("GoogleSheetparse04_repeat 有資料新增")
     else:
         print("GoogleSheetparse04_count")
         #LineNotifyAPI.lineNotifyMessageDaily('有資料 異常 新增，需整理TransactionRecor表單')
@@ -136,8 +171,10 @@ def MonthlyCourseStatistics(status):
     print(u'現在日期', today)
     #取當月
     tomonth = datetime.date.today().strftime('%m')
+    print(u'現在當月', tomonth)
     #取當年
     toyear = datetime.date.today().strftime('%y')
+    print(u'現在當年', toyear)
     #上個月
     lastMonth = int(tomonth)-1
     if lastMonth == 0:
@@ -257,8 +294,8 @@ def main(sargv):
     elif sargv == '-Tt':
         SendTest()
     else:
-        MonthlyCourseStatistics(status=False)
-        #DailyDataCollection()
+        #MonthlyCourseStatistics(status=False)
+        allDailyDataCollection()
         # ThisMonthNumberOfPeopleRegistered()
         # GoogleSheetparse04()
         # addMemberSaveCSV()
