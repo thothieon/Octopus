@@ -131,6 +131,7 @@ class GoogleSheet():
         print("Finished")
         return sdff
 
+    # 全部 判斷
     def parse04CourseSetDayTrading(self, doc_key, name, sheet, tradingdata):
         print("GoogleSheet_parse04CourseDayTrading")
 

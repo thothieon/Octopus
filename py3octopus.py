@@ -77,7 +77,7 @@ def ThisMonthNumberOfPeopleRegistered():
     LineNotifyAPI.lineNotifyMessageTest(mysqlDataMsg)
     print("ThisMonthNumberOfPeopleRegistered_linenotifyapi")
 
-#確認表單全部有無新交易紀錄
+#確認表單 全部 有無新交易紀錄
 def allDailyDataCollection():
     print("allDailyDataCollection")
     # 1 每天一次，確認表單當天有無新交易紀錄
