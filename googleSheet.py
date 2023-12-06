@@ -21,6 +21,7 @@ import pandas as pd
 # https://officeguide.cc/python-openpyxl-read-write-excel-file-tutorial-examples/
 
 
+# Google Sheet 相關
 class GoogleSheet():
     def __init__(self, diving_center):
         print("GoogleSheet_init_")
@@ -89,14 +90,12 @@ class GoogleSheet():
                     print('Auth timeout, re-login')
                     gss_client.login()
                 elif e['error']['code'] == 429:
-                    print('Exceed the limitation on row %s, sleep 10 seconds (%s)' % (
-                        row, datetime.datetime.now()))
+                    print('Exceed the limitation on row %s, sleep 10 seconds (%s)' % (row, datetime.datetime.now()))
                     time.sleep(10)
                 else:
                     print(e)
             except Exception as e:
-                print(
-                    'Now process except Exception Error [%s:%s] - %s' % (row, currentCell, e))
+                print('Now process except Exception Error [%s:%s] - %s' % (row, currentCell, e))
                 log_file.write('Error [%s:%s] - %s\n' % (row, currentCell, e))
                 row = row + 1
 
@@ -142,9 +141,9 @@ class GoogleSheet():
         print("GoogleSheet_parse04CourseDayTrading_datetime ", datetime_dt.strftime("%Y%m%d%H%M%S"))
         yearno = datetime_dt.strftime("%Y")
         print("GoogleSheet_parse04CourseDayTrading_year ", yearno)
-        moonno = "03"
+        moonno = "08"
         print("GoogleSheet_parse04CourseDayTrading_moon ", moonno)
-        dayno = "12"
+        dayno = "01"
         print("GoogleSheet_parse04CourseDayTrading_day ", dayno)
 
         sheets = self.google_cred.open_by_key(doc_key)
@@ -165,8 +164,9 @@ class GoogleSheet():
             tradingdata = str(moonno) + str(dayno)
 
         print("GoogleSheet_parse04CourseDayTrading_tradingdata ", tradingdata)
-        filt = self.df[0].str.contains(yearvalue, na=False) & (((self.df[4].str.contains('訂金', na=False) | self.df[4].str.contains('定金', na=False) | self.df[4].str.contains(
-            '全額', na=False))) | (self.df[5].str.contains(tradingdata) & (self.df[5].str.contains('訂金', na=False) | self.df[5].str.contains('定金', na=False) | self.df[5].str.contains('全額', na=False))))
+        filt = self.df[0].str.contains(yearvalue, na=False) & (((self.df[4].str.contains('訂金', na=False) | self.df[4].str.contains('定金', na=False) | \
+                self.df[4].str.contains('全額', na=False))) | (self.df[5].str.contains(tradingdata) & (self.df[5].str.contains('訂金', na=False) | \
+                self.df[5].str.contains('定金', na=False) | self.df[5].str.contains('全額', na=False))))
         #print(self.df.loc[filt, [0, 1, 4, 5, 6]])
         #sdff = self.df.loc[filt, [0, 1, 4, 5, 6]]
         print(self.df.loc[filt])
@@ -206,8 +206,9 @@ class GoogleSheet():
             tradingdata = str(moonno) + "/" + str(dayno)
 
         print("GoogleSheet_parse04CourseDayTrading_tradingdata ", tradingdata)
-        filt = self.df[0].str.contains(yearvalue, na=False) & ((self.df[4].str.contains(tradingdata) & (self.df[4].str.contains('訂金', na=False) | self.df[4].str.contains('定金', na=False) | self.df[4].str.contains(
-            '全額', na=False))) | (self.df[5].str.contains(tradingdata) & (self.df[5].str.contains('訂金', na=False) | self.df[5].str.contains('定金', na=False) | self.df[5].str.contains('全額', na=False))))
+        filt = self.df[0].str.contains(yearvalue, na=False) & ((self.df[4].str.contains(tradingdata) & (self.df[4].str.contains('訂金', na=False) | \
+                self.df[4].str.contains('定金', na=False) | self.df[4].str.contains('全額', na=False))) | (self.df[5].str.contains(tradingdata) & \
+                (self.df[5].str.contains('訂金', na=False) | self.df[5].str.contains('定金', na=False) | self.df[5].str.contains('全額', na=False))))
         #print(self.df.loc[filt, [0, 1, 4, 5, 6]])
         #sdff = self.df.loc[filt, [0, 1, 4, 5, 6]]
         print(self.df.loc[filt])
@@ -258,8 +259,7 @@ class GoogleSheet():
         row = 0
 
         with open(postscolname, mode='w') as employee_file:
-            employee_writer = csv.writer(
-                employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, index=False, encoding='utf-8')
+            employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, index=False, encoding='utf-8')
 
             #employee_writer.writerow(['John Smith', 'Accounting', 'November'])
             #employee_writer.writerow(['Erica Meyers', 'IT', 'March'])

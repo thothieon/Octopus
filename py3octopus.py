@@ -77,7 +77,7 @@ def ThisMonthNumberOfPeopleRegistered():
     LineNotifyAPI.lineNotifyMessageTest(mysqlDataMsg)
     print("ThisMonthNumberOfPeopleRegistered_linenotifyapi")
 
-#確認表單 全部 有無新交易紀錄
+#確認課程報名表單 全部 有無新交易紀錄
 def allDailyDataCollection():
     print("allDailyDataCollection")
     # 1 每天一次，確認表單當天有無新交易紀錄
@@ -110,7 +110,7 @@ def allDailyDataCollection():
         TradeMsg = mysqlTradeMsg
         colno = colno + 1
 
-#確認表單當天有無新交易紀錄
+#確認課程報名表單當天有無新交易紀錄
 def DailyDataCollection():
     print("DailyDataCollection_Init")
     # 1 每天一次，確認表單當天有無新交易紀錄
@@ -163,7 +163,7 @@ def BirthdayMaturity():
 def MemberMaturity():
     print("MemberMaturity_Init")
 
-#輸出上個月統計數據
+#課程報名表單 輸出上個月統計數據
 def MonthlyCourseStatistics(status):
     print("MonthlyCourseStatistics_Init")
     #帶下個月數值查詢，取下個月生日名單
@@ -295,12 +295,14 @@ def main(sargv):
         SendTest()
     else:
         #MonthlyCourseStatistics(status=False)
+        #DailyDataCollection()
         allDailyDataCollection()
         # ThisMonthNumberOfPeopleRegistered()
         # GoogleSheetparse04()
         # addMemberSaveCSV()
         # addMemberToMongoDB()
         # MongoDBTest()
+        # SendTest()
 
 
 if __name__ == '__main__':
